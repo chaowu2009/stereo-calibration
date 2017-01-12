@@ -35,8 +35,15 @@ int main(int argc, char const *argv[])
   Mat K1, K2, R;
   Vec3d T;
   Mat D1, D2;
-  Mat img1 = imread(leftimg_filename, CV_LOAD_IMAGE_COLOR);
-  Mat img2 = imread(rightimg_filename, CV_LOAD_IMAGE_COLOR);
+  //Mat img1 = imread(leftimg_filename, CV_LOAD_IMAGE_COLOR);
+  Mat img1 = imread(leftimg_filename);
+  cout << "image 1 name is " << leftimg_filename <<endl;
+  if (!img1.data) { cout << "wrong image 1 name" <<endl;}
+  
+  //Mat img2 = imread(rightimg_filename, CV_LOAD_IMAGE_COLOR);
+  Mat img2 = imread(rightimg_filename);
+  cout << "image 2 name is " << rightimg_filename <<endl;
+  if (!img2.data){ cout << "wrong image 2 name" <<endl;}
 
   cv::FileStorage fs1(calib_file, cv::FileStorage::READ);
   fs1["K1"] >> K1;

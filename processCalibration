@@ -1,0 +1,15 @@
+# left camera calibration
+
+HOME_PATH="/home/cwu/project/stereo-calibration"
+
+$HOME_PATH/build/calibrate -w 9 -h 6 -n 50 -s 0.0625 -d "$HOME_PATH/calib_imgs/4/left/" -i "left_" -o "cam_left.yml" -e "jpg"
+
+#right camera calibration
+
+./build/calibrate -w 9 -h 6 -n 50 -s 0.0625 -d "$HOME_PATH/calib_imgs/4/right/" -i "right_" -o "cam_right.yml" -e "jpg"
+
+#stereo calibration
+./build/calibrate_stereo -n 50 -u cam_left.yml -v cam_right.yml -L $HOME_PATH/calib_imgs/4/left/ -R $HOME_PATH/calib_imgs/4/right/ -l "left_" -r "right_" -o cam_stereo.yml
+
+#rectify images
+./build/undistort_rectify -l "$HOME_PATH/calib_imgs/4/left/left_1.jpg" -r "$HOME_PATH/calib_imgs/4/right/right_1.jpg" -c cam_stereo.yml -L calibrated_left_1.jpg -R calibrated_right_1.jpg

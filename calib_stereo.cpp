@@ -26,28 +26,38 @@ void load_image_points(int board_width, int board_height, int num_imgs, float sq
     char left_img[100], right_img[100];
     sprintf(left_img, "%s%s%d.jpg", leftimg_dir, leftimg_filename, i);
     sprintf(right_img, "%s%s%d.jpg", rightimg_dir, rightimg_filename, i);
-    img1 = imread(left_img, CV_LOAD_IMAGE_COLOR);
-    img2 = imread(right_img, CV_LOAD_IMAGE_COLOR);
+    //cout << "left image is " << left_img << endl;
+
+    //img1 = imread(left_img, CV_LOAD_IMAGE_COLOR);
+    //img2 = imread(right_img, CV_LOAD_IMAGE_COLOR);
+    img1 = imread(left_img);
+    img2 = imread(right_img);
+
+    if (!img1.data) {
+		std::cout << " --(!) Error reading images " << std::endl;
+	}
+
+	if (!img2.data) {
+		std::cout << " --(!) Error reading images " << std::endl;
+	}
     cvtColor(img1, gray1, CV_BGR2GRAY);
     cvtColor(img2, gray2, CV_BGR2GRAY);
 
     bool found1 = false, found2 = false;
 
-    found1 = cv::findChessboardCorners(img1, board_size, corners1,
-  CV_CALIB_CB_ADAPTIVE_THRESH | CV_CALIB_CB_FILTER_QUADS);
-    found2 = cv::findChessboardCorners(img2, board_size, corners2,
-  CV_CALIB_CB_ADAPTIVE_THRESH | CV_CALIB_CB_FILTER_QUADS);
+    found1 = cv::findChessboardCorners(img1, board_size, corners1,  CV_CALIB_CB_ADAPTIVE_THRESH | CV_CALIB_CB_FILTER_QUADS);
+    found2 = cv::findChessboardCorners(img2, board_size, corners2,  CV_CALIB_CB_ADAPTIVE_THRESH | CV_CALIB_CB_FILTER_QUADS);
+
+    cv::TermCriteria criteria = cv::TermCriteria(CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 30, 0.1);
 
     if (found1)
     {
-      cv::cornerSubPix(gray1, corners1, cv::Size(5, 5), cv::Size(-1, -1),
-  cv::TermCriteria(CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 30, 0.1));
+      cv::cornerSubPix(gray1, corners1, cv::Size(5, 5), cv::Size(-1, -1), criteria);
       cv::drawChessboardCorners(gray1, board_size, corners1, found1);
     }
     if (found2)
     {
-      cv::cornerSubPix(gray2, corners2, cv::Size(5, 5), cv::Size(-1, -1),
-  cv::TermCriteria(CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 30, 0.1));
+      cv::cornerSubPix(gray2, corners2, cv::Size(5, 5), cv::Size(-1, -1), criteria);
       cv::drawChessboardCorners(gray2, board_size, corners2, found2);
     }
 
