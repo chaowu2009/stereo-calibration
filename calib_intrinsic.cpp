@@ -23,10 +23,13 @@ void setup_calibration(int board_width, int board_height, int num_imgs,
   Size board_size = Size(board_width, board_height);
   int board_n = board_width * board_height;
 
+  cout << "single calibration begins ..." << endl;
+
   for (int k = 1; k <= num_imgs; k++) {
     char img_file[100];
-    sprintf(img_file, "%s%s%d.%s", imgs_directory, imgs_filename, k, extension);
+    sprintf(img_file, "%s%s_%d.%s", imgs_directory, imgs_filename, k, extension);
     //img = imread(img_file, CV_LOAD_IMAGE_COLOR);
+    //cout << "fileName =" << img_file << endl;
     img = imread(img_file);
     if (!img.data) {
     std::cout << " --(!) Error reading images " << std::endl;
