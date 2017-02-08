@@ -28,8 +28,9 @@ void setup_calibration(int board_width, int board_height, int num_imgs,
   for (int k = 1; k <= num_imgs; k++) {
     char img_file[100];
     sprintf(img_file, "%s%s_%d.%s", imgs_directory, imgs_filename, k, extension);
-    //img = imread(img_file, CV_LOAD_IMAGE_COLOR);
-    //cout << "fileName =" << img_file << endl;
+    cout << "fileName =" << img_file << endl;
+    img = imread(img_file, CV_LOAD_IMAGE_COLOR);
+
     img = imread(img_file);
     if (!img.data) {
     std::cout << " --(!) Error reading images " << std::endl;

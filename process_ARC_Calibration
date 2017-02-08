@@ -1,0 +1,15 @@
+# left camera calibration
+
+HOME_PATH="/home/hillcrest/project/stereo-calibration"
+
+./build/calibrate -w 9 -h 6 -n 50 -s 0.0625 -d "$HOME_PATH/calib_imgs/ARC/img_left/" -i "left" -o "ARC_cam_left.yml" -e "jpg"
+
+#right camera calibration
+
+./build/calibrate -w 9 -h 6 -n 50 -s 0.0625 -d "$HOME_PATH/calib_imgs/ARC/img_right/" -i "right" -o "ARC_cam_right.yml" -e "jpg"
+
+#stereo calibration
+./build/calibrate_stereo -n 50 -u ARC_cam_left.yml -v ARC_cam_right.yml -L $HOME_PATH/calib_imgs/ARC/img_left/ -R $HOME_PATH/calib_imgs/ARC/img_right/ -l "left" -r "right" -o ARC_cam_stereo.yml
+
+#rectify images
+./build/undistort_rectify -l "$HOME_PATH/calib_imgs/ARC/img_left/left_10.jpg" -r "$HOME_PATH/calib_imgs/ARC/img_right/right_10.jpg" -c ARC_cam_stereo.yml -L ARC_calibrated_left_10.jpg -R ARC_calibrated_right_10.jpg

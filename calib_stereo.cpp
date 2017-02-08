@@ -29,8 +29,8 @@ void load_image_points(int board_width, int board_height, int num_imgs, float sq
     sprintf(left_img, "%s%s_%d.jpg", leftimg_dir, leftimg_filename, i);
     sprintf(right_img, "%s%s_%d.jpg", rightimg_dir, rightimg_filename, i);
 
-    //cout << "left image is " << left_img << endl;
-    //cout << "right image is " << right_img << endl;
+    cout << "left image is " << left_img << endl;
+    cout << "right image is " << right_img << endl;
 
     //img1 = imread(left_img, CV_LOAD_IMAGE_COLOR);
     //img2 = imread(right_img, CV_LOAD_IMAGE_COLOR);

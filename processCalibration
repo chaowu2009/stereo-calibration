@@ -2,7 +2,7 @@
 
 HOME_PATH="/home/cwu/project/stereo-calibration"
 
-$HOME_PATH/build/calibrate -w 9 -h 6 -n 50 -s 0.0625 -d "$HOME_PATH/calib_imgs/4/left/" -i "left_" -o "cam_left.yml" -e "jpg"
+$HOME_PATH/build/calibrate -w 9 -h 6 -n 50 -s 0.0625 -d "$HOME_PATH/calib_imgs/ARC/img_left/" -i "left_" -o "cam_left.yml" -e "jpg"
 
 #right camera calibration
 
